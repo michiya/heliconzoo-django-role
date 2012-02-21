@@ -1,0 +1,6 @@
+# Add Python modules your project requires here. 
+# If you don't have them, you will have them installed into python_modules folder upon the first request after IIS-app restart.
+# Learn more at http://www.pip-installer.org/en/latest/requirement-format.html
+
+django
+#south

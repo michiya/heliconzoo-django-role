@@ -1,0 +1,5 @@
+*.cspkg
+*.csx
+*.log
+*.pyc
+*.pyo

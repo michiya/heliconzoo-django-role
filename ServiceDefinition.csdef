@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceDefinition name="heliconzoo-django-role" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
+  <WebRole name="WebRole" enableNativeCodeExecution="true">
+    <Sites>
+      <Site name="Web" physicalDirectory="./WebRole">
+        <Bindings>
+          <Binding name="Endpoint1" endpointName="HttpEndpoint" />
+        </Bindings>
+      </Site>
+    </Sites>
+    <Startup>
+      <Task commandLine="startup.cmd" executionContext="elevated" taskType="simple" >
+        <Environment>
+          <Variable name="EMULATED">
+            <RoleInstanceValue xpath="/RoleEnvironment/Deployment/@emulated" />
+          </Variable>
+          <Variable name="LOCAL_RESOURCE_TMP_DIR">
+            <RoleInstanceValue xpath="/RoleEnvironment/CurrentInstance/LocalResources/LocalResource[@name='tmp']/@path" />
+          </Variable>
+        </Environment>
+      </Task>
+    </Startup>
+    <Endpoints>
+      <InputEndpoint name="HttpEndpoint" protocol="http" port="80" />
+    </Endpoints>
+    <ConfigurationSettings>
+    </ConfigurationSettings>
+    <LocalResources>
+      <LocalStorage name="tmp" cleanOnRoleRecycle="true" sizeInMB="1000" />
+    </LocalResources>
+  </WebRole>
+</ServiceDefinition>
