@@ -19,7 +19,9 @@ powershell -c "(new-object System.Net.WebClient).DownloadFile('http://www.python
 msiexec /i %LOCAL_RESOURCE_TMP_DIR%python27.msi /qn TARGET_DIR=%PYTHON_INSTALL_DIR%
 
 echo installing WebPICmdLine...
-powershell -c "(new-object System.Net.WebClient).DownloadFile('http://www.iis.net/community/files/webpi/webpicmdline_anycpu.zip', '%LOCAL_RESOURCE_TMP_DIR%webpicmdline.zip')"
+REM tentative fix (the download site seems to be down as of 2012/03/13)
+REM powershell -c "(new-object System.Net.WebClient).DownloadFile('http://www.iis.net/community/files/webpi/webpicmdline_anycpu.zip', '%LOCAL_RESOURCE_TMP_DIR%webpicmdline.zip')"
+copy %~dp0webpicmdline_anycpu.zip %LOCAL_RESOURCE_TMP_DIR%webpicmdline.zip
 %PYTHON_INSTALL_DIR%\python -m zipfile -e %LOCAL_RESOURCE_TMP_DIR%webpicmdline.zip %LOCAL_RESOURCE_TMP_DIR%webpicmdline
 
 echo installing Helicon Zoo...
