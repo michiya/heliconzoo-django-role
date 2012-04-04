@@ -20,8 +20,7 @@ the script `WebRole/bin/install-requirements.cmd` in this scaffold may be helpfu
 when you install them.
 
 * Django
-* [pyodbc](http://code.google.com/p/pyodbc/)
-* [django-pyodbc](http://code.google.com/p/django-pyodbc/)
+* [pywin32](http://sourceforge.net/projects/pywin32/)/[django-mssql](http://code.google.com/p/django-mssql/) or [pyodbc](http://code.google.com/p/pyodbc/)/[django-pyodbc](http://code.google.com/p/django-pyodbc/)
 
 Usage
 -----

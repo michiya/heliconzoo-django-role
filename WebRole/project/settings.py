@@ -18,10 +18,23 @@ DATABASES = {
         'NAME': '',                                          # Or path to database file if using sqlite3.
         'PORT': '',                                          # Set to empty string for default. Not used with sqlite3.
 
-        # database setting sample for SQL Azure
-        #'ENGINE': 'sql_server.pyodbc',                      # Or other mssql engine ('sqlserver_ado' etc.) if available
+
+        # database setting sample for SQL Azure with pywin32/django-msssql
+        #'ENGINE': 'sqlserver_ado',
         #'HOST': 'yourserver.database.windows.net',          # Or your local mssql instance
-        #'USER': 'username@yourserver.database.windows.net', # Or your local mssql login
+        #'USER': 'username@yourserver',                      # Or your local mssql login
+        #'PASSWORD': 'password',
+        #'NAME': 'yourdb',
+        #'PORT': '',                                         # Or your local mssql port
+        #'OPTIONS' : {
+        #    'provider': 'SQLNCLI10',
+        #    'use_mars': True,
+        #},
+
+        # database setting sample for SQL Azure with pyodbc/django-pyodbc
+        #'ENGINE': 'sql_server.pyodbc',
+        #'HOST': 'yourserver.database.windows.net',          # Or your local mssql instance
+        #'USER': 'username@yourserver',                      # Or your local mssql login
         #'PASSWORD': 'password',
         #'NAME': 'yourdb',
         #'PORT': '',                                         # Or your local mssql port
