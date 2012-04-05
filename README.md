@@ -11,7 +11,7 @@ You can use [Web Platform Installer](http://www.microsoft.com/web/downloads/plat
 to install them easily.
 
 * Windows Azure SDK
-* Python 2.7 
+* Python 2.7
 * Helicon Zoo Module
 * SQL Server Express 2008 R2
 
@@ -20,7 +20,7 @@ the script `WebRole/bin/install-requirements.cmd` in this scaffold may be helpfu
 when you install them.
 
 * Django
-* [pywin32](http://sourceforge.net/projects/pywin32/)/[django-mssql](http://code.google.com/p/django-mssql/) or [pyodbc](http://code.google.com/p/pyodbc/)/[django-pyodbc](http://code.google.com/p/django-pyodbc/)
+* [pyodbc](http://code.google.com/p/pyodbc/)/[django-pyodbc](http://code.google.com/p/django-pyodbc/) or [pywin32](http://sourceforge.net/projects/pywin32/)/[django-mssql](http://code.google.com/p/django-mssql/)
 
 Usage
 -----
