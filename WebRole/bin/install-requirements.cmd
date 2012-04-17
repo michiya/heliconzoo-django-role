@@ -53,7 +53,7 @@ echo installing pyodbc...
 %PYTHON_INSTALL_DIR%\python -c "import pyodbc" 2>nul
 if "%ERRORLEVEL%"=="0" goto INSTALL_DJANGO_PYODBC
 if "%PYTHON_X86%"=="0" goto INSTALL_PYODBC_X64
-%SystemDrive%\Python27\Scripts\easy_install -Z pyodbc==3.0.2
+%SystemDrive%\Python27\Scripts\easy_install -Z pyodbc==3.0.5
 goto INSTALL_DJANGO_PYODBC
 
 :INSTALL_PYODBC_X64
