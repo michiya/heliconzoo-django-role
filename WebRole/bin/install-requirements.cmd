@@ -34,20 +34,11 @@ powershell -c "(new-object System.Net.WebClient).DownloadFile('http://peak.telec
 
 :INSTALL_PIP
 echo installing pip...
-if exist %PYTHON_INSTALL_DIR%\Scripts\pip.exe goto INSTALL_SVN
+if exist %PYTHON_INSTALL_DIR%\Scripts\pip.exe goto INSTALL_PYODBC
 %PYTHON_INSTALL_DIR%\Scripts\easy_install pip
 
 
 REM install django-pyodbc
-:INSTALL_SVN
-echo installing subversion...
-set SVN_VERSION=1.7.4
-set SVN_DIR=svn-win32-%SVN_VERSION%
-set SVN_INSTALLER=%SVN_DIR%.zip
-if exist %LOCAL_RESOURCE_TMP_DIR%\%SVN_DIR%\bin\svn.exe goto INSTALL_PYODBC
-powershell -c "(new-object System.Net.WebClient).DownloadFile('http://downloads.sourceforge.net/project/win32svn/%SVN_VERSION%/%SVN_INSTALLER%', '%LOCAL_RESOURCE_TMP_DIR%\%SVN_INSTALLER%')"
-%SystemDrive%\Zoo\Tools\7za x -o%LOCAL_RESOURCE_TMP_DIR% -y %LOCAL_RESOURCE_TMP_DIR%\%SVN_INSTALLER%
-
 :INSTALL_PYODBC
 echo installing pyodbc...
 %PYTHON_INSTALL_DIR%\python -c "import pyodbc" 2>nul
@@ -65,41 +56,14 @@ xcopy /e /h /y %LOCAL_RESOURCE_TMP_DIR%\pyodbc\PLATLIB\* %PYTHON_INSTALL_DIR%\Li
 :INSTALL_DJANGO_PYODBC
 echo installing django-pyodbc...
 %PYTHON_INSTALL_DIR%\python -c "import sql_server.pyodbc" 2>nul
-if "%ERRORLEVEL%"=="0" goto INSTALL_HG
-cd /d %LOCAL_RESOURCE_TMP_DIR%
-%LOCAL_RESOURCE_TMP_DIR%\%SVN_DIR%\bin\svn export http://django-pyodbc.googlecode.com/svn/trunk/ django-pyodbc
-cd .\django-pyodbc
+if "%ERRORLEVEL%"=="0" goto INSTALL_REQUIREMENTS
+set DJANGO_PYODBC_EXTRACT_DIR=%LOCAL_RESOURCE_TMP_DIR%\django-pyodbc
+powershell -c "(new-object System.Net.WebClient).DownloadFile('https://github.com/avidal/django-pyodbc/zipball/django-1.4', '%LOCAL_RESOURCE_TMP_DIR%\django-pyodbc.zip')"
+%SystemDrive%\Zoo\Tools\7za x -o%DJANGO_PYODBC_EXTRACT_DIR% -y %LOCAL_RESOURCE_TMP_DIR%\django-pyodbc.zip
+for /f "usebackq" %%i IN (`dir /b %DJANGO_PYODBC_EXTRACT_DIR%`) do ren %DJANGO_PYODBC_EXTRACT_DIR%\%%i django-pyodbc
+cd /d %DJANGO_PYODBC_EXTRACT_DIR%\django-pyodbc
 %PYTHON_INSTALL_DIR%\python setup.py install
 cd /d "%~dp0"
-
-
-REM install django-mssql
-:INSTALL_HG
-echo installing mercurial...
-if exist "%ProgramFiles%\Mercurial\hg.exe" goto INSTALL_PYWIN32
-set HG_INSTALLER=Mercurial-2.1.2-x86.exe
-if exist "%ProgramFiles(x86)%" set HG_INSTALLER=Mercurial-2.1.2-x64.exe
-powershell -c "(new-object System.Net.WebClient).DownloadFile('http://mercurial.selenic.com/release/windows/%HG_INSTALLER%', '%LOCAL_RESOURCE_TMP_DIR%\%HG_INSTALLER%')"
-%LOCAL_RESOURCE_TMP_DIR%\%HG_INSTALLER% /verysilent /sp-
-set PATH=%PATH%;%ProgramFiles%\Mercurial
-
-:INSTALL_PYWIN32
-echo installing pywin32...
-%PYTHON_INSTALL_DIR%\python -c "import win32com" 2>nul
-if "%ERRORLEVEL%"=="0" goto INSTALL_DJANGO_MSSQL
-set PYWIN32_INSTALLER=pywin32-217.win32-py2.7.exe
-if "%PYTHON_X86%"=="0" set PYWIN32_INSTALLER=pywin32-217.win-amd64-py2.7.exe
-powershell -c "(new-object System.Net.WebClient).DownloadFile('http://downloads.sourceforge.net/project/pywin32/pywin32/Build 217/%PYWIN32_INSTALLER%', '%LOCAL_RESOURCE_TMP_DIR%\%PYWIN32_INSTALLER%')"
-%SystemDrive%\Zoo\Tools\7za x -o%LOCAL_RESOURCE_TMP_DIR%\pywin32 -y %LOCAL_RESOURCE_TMP_DIR%\%PYWIN32_INSTALLER%
-xcopy /e /h /y %LOCAL_RESOURCE_TMP_DIR%\pywin32\PLATLIB\* %PYTHON_INSTALL_DIR%\Lib\site-packages
-copy %LOCAL_RESOURCE_TMP_DIR%\pywin32\SCRIPTS\* %PYTHON_INSTALL_DIR%\Scripts\
-%PYTHON_INSTALL_DIR%\python %PYTHON_INSTALL_DIR%\Scripts\pywin32_postinstall.py -install
-
-:INSTALL_DJANGO_MSSQL
-echo installing django-mssql...
-%PYTHON_INSTALL_DIR%\python -c "import sqlserver_ado" 2>nul
-if "%ERRORLEVEL%"=="0" goto INSTALL_REQUIREMENTS
-%SystemDrive%\Python27\Scripts\pip install hg+https://django-mssql.googlecode.com/hg/#egg=django-mssql
 
 
 REM install other required python packages
