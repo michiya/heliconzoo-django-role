@@ -1,5 +1,6 @@
-# Add Python modules your project requires here. 
+# Add Python modules your project requires here.
 # Learn more at http://www.pip-installer.org/en/latest/requirements.html
 
 django
 #south
+git+https://github.com/avidal/django-pyodbc.git

@@ -1,21 +1,21 @@
 heliconzoo-django-role
 ======================
 This is a simple scaffold powered by [Helicon Zoo](http://www.helicontech.com/zoo/)
-for packaging Django applications to run on Windows Azure and SQL Azure.
+for packaging Django applications to run on Windows Azure Platform.
 
 Prerequisites
 -------------
 
-You will need to install the following software on your local computer.
+You will need to install the following software on your local computer to make use of this scaffold.
 You can use [Web Platform Installer](http://www.microsoft.com/web/downloads/platform.aspx)
 to install them easily.
 
-* Windows Azure SDK
+* Windows Azure SDK 1.6 or higher
 * Python 2.7
 * Helicon Zoo Module
-* SQL Server Express 2008 R2
+* SQL Server Express 2008 R2 or higher
 
-And the following Python packages are also required on your Python installation, 
+And the following Python packages are also required on your Python installation,
 the script `WebRole/bin/install-requirements.cmd` in this scaffold may be helpful
 when you install them.
 
@@ -26,7 +26,7 @@ Usage
 -----
 
 1. Create your Django applications into `WebRole/project` directory,
-and add any other Python packages you use to `WebRole/requirements.txt`. 
+and add any other Python packages you use to `WebRole/requirements.txt`.
 
 2. Turn IIS feature on and run `run.cmd` on your Windows Azure Command Prompt
 to run the application on your local emulator.
